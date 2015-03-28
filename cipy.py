@@ -5,35 +5,41 @@ def encrypt(key):
 	126 was using forr ASCII Printable Character map
 	http://thelivingpearl.com/printable-ascii-characters/
 	'''
-	plaintext = raw_input('Masukan pesan: ')
-	cipher = ''
+	pathMsg = raw_input('Masukan path .txt pesan: ')
+	target = open('chiper.txt', 'w')
+	msg = open(pathMsg)
 
-	for char in plaintext:
-		c = (ord(char) + key) % 126
+	for line in msg:
+		cipher = ''
+		for char in line:
+			c = (ord(char) + key) % 126
+			if c < 32:
+				c += 31
 
-		if c < 32:
-			''' 
-			First 32 was some unprintable characters
-			'''
-			c += 31
+			cipher += chr(c)
+		target.write(str(cipher))
+		target.write('\n')
 
-		cipher += chr(c)
-
-	print 'Pesan terenkripsi: ' + cipher
+	print 'Pesan terenkripsi: chiper.txt'
 
 def decrypt(key):
-	cipher = raw_input('Masukan pesan terenkripsi: ')
-	plaintext = ''
+	pathEnc = raw_input('Masukan path .txt terenkripsi: ')
+	target = open('decrypt.txt', 'w')
+	ciphertext = open(pathEnc)
 
-	for char in cipher:
-		indexchar = (ord(char) - key) % 126
+	for line in ciphertext:
+		plaintext = ''
+		for char in line:
+			indexchar = (ord(char) - key) % 126
 
-		if indexchar < 32:
-			indexchar += 95
+			if indexchar < 32:
+				indexchar += 95
 
-		plaintext += chr(indexchar)
+			plaintext += chr(indexchar)
+		target.write(str(plaintext))
+		target.write('\n')
 
-	print 'Pesan: ' + plaintext
+	print 'Pesan: decrypt.txt'
 
 def main(argv):
 	'''

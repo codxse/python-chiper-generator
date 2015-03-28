@@ -17,24 +17,25 @@ def encrypt(key):
 			'''
 			c += 31
 
-			cipher += chr(c)
+		cipher += chr(c)
 
 	print 'Pesan terenkripsi: ' + cipher
 
 def main(argv):
-	if (len(sys.argv) != 2):
-		sys.exit('Format: python cipy.py <key>')
+	'''
+	key: jumlah penggeseran (key < len(alphabet))
+	mode: e for encrypt
+			  d for decrypt
+	'''
+	if (len(sys.argv) != 3):
+		sys.exit('Format: python cipy.py <key> <mode>')
 
-	plaintext = list(raw_input('Masukan pesan: '))
-	alphabet = list('abcdefghijklmnopqrstupwxyz')
-	key = int(sys.argv[1])
-	cipher = ''
-
-	for char in plaintext:
-		if char in alphabet:
-			cipher += alphabet[(alphabet.index(char) + key) % (len(alphabet))]
-
-	print 'Pesan terenkripsi: ' + cipher
+	if sys.argv[2] == 'e':
+		encrypt(int(sys.argv[1]))
+	elif sys.argv[2] == 'd':
+		decrypt(int(sys.argv[1]))
+	else:
+		sys.exit('Format exc error')
 
 if __name__ == '__main__':
 	main(sys.argv[1:])

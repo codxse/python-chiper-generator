@@ -21,6 +21,20 @@ def encrypt(key):
 
 	print 'Pesan terenkripsi: ' + cipher
 
+def decrypt(key):
+	cipher = raw_input('Masukan pesan terenkripsi: ')
+	plaintext = ''
+
+	for char in cipher:
+		indexchar = (ord(char) - key) % 126
+
+		if indexchar < 32:
+			indexchar += 95
+
+		plaintext += chr(indexchar)
+
+	print 'Pesan: ' + plaintext
+
 def main(argv):
 	'''
 	key: jumlah penggeseran (key < len(alphabet))
